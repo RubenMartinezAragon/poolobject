@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.ReusablePool;
+
 /**
  * @author Ruben Martinez Aragon
  *
@@ -34,7 +36,11 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		
+		ReusablePool instancia1 = ReusablePool.getInstance();
+		ReusablePool instancia2 = ReusablePool.getInstance();
+		assertEquals(instancia1,instancia2);//comprobar que siempre devuelve la misma
+		assertNotNull(instancia1);//comprobar que la instancia no es null
 	}
 
 	/**

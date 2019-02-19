@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.NotFreeInstanceException;
+import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
@@ -48,7 +50,26 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
+		ReusablePool instancia = ReusablePool.getInstance();
+		Boolean x=false;
+		Boolean thrown=false;
+		try {
+			Reusable reu=instancia.acquireReusable();
+			assertNotNull(reu);
+			Reusable reu2=instancia.acquireReusable();
+			assertNotNull(reu2);
+			assertNotEquals(reu,reu2);
+			x=true;//para ver que dos se puede
+			instancia.acquireReusable(); // para ver que hay un limite tiene que saltar excepcion
+			
+		} catch (NotFreeInstanceException e) {
+			// TODO Auto-generated catch block
+			thrown=true;
+		}
+		
+		assertTrue(x);
+		assertTrue(thrown);
 	}
 
 	/**

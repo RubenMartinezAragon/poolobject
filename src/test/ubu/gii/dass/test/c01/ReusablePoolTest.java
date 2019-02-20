@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -70,14 +71,31 @@ public class ReusablePoolTest {
 		
 		assertTrue(x);
 		assertTrue(thrown);
+
 	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
-	public void testReleaseReusable() {
-		fail("Not yet implemented");
+	public void testReleaseReusable() throws NotFreeInstanceException {
+		ReusablePool instancia = ReusablePool.getInstance();
+		Boolean thrown=false;
+		try {
+			Reusable reu=instancia.acquireReusable();
+			assertNotNull(reu);
+			instancia.releaseReusable(reu);
+			
+			instancia.releaseReusable(reu);
+			
+		} catch (DuplicatedInstanceException e) {
+			// TODO Auto-generated catch block
+			thrown=true;
+		}
+		
+		assertTrue(thrown);
+
 	}
 
 }

@@ -61,6 +61,7 @@ public class ReusablePoolTest {
 			Reusable reu2=instancia.acquireReusable();
 			assertNotNull(reu2);
 			assertNotEquals(reu,reu2);
+			assertEquals(reu.util(),reu.hashCode() + "  :Uso del objeto Reutilizable");
 			x=true;//para ver que dos se puede
 			instancia.acquireReusable(); // para ver que hay un limite tiene que saltar excepcion
 			

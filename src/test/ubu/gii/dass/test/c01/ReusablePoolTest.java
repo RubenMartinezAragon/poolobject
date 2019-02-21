@@ -48,30 +48,39 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * @throws DuplicatedInstanceException 
 	 */
 	@Test
-	public void testAcquireReusable() {
+	public void testAcquireReusable() throws DuplicatedInstanceException {
 		//fail("Not yet implemented");
 		ReusablePool instancia = ReusablePool.getInstance();
 		Boolean x=false;
 		Boolean thrown=false;
+		Reusable reu=null;
+		Reusable reu2=null;
 		try {
-			Reusable reu=instancia.acquireReusable();
+			reu=instancia.acquireReusable();
 			assertNotNull(reu);
-			Reusable reu2=instancia.acquireReusable();
+			reu2=instancia.acquireReusable();
 			assertNotNull(reu2);
 			assertNotEquals(reu,reu2);
 			assertEquals(reu.util(),reu.hashCode() + "  :Uso del objeto Reutilizable");
+			assertEquals(reu2.util(),reu2.hashCode() + "  :Uso del objeto Reutilizable");
 			x=true;//para ver que dos se puede
 			instancia.acquireReusable(); // para ver que hay un limite tiene que saltar excepcion
 			
 		} catch (NotFreeInstanceException e) {
 			// TODO Auto-generated catch block
 			thrown=true;
+			
+			
 		}
-		
 		assertTrue(x);
 		assertTrue(thrown);
+		
+		//liberar los objetos
+		instancia.releaseReusable(reu);
+		instancia.releaseReusable(reu2);
 
 	}
 

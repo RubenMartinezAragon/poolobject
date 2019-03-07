@@ -1,5 +1,4 @@
 
 language: java
 after_success:
-  - export CODACY_PROJECT_TOKEN=3bea0c81674942e5aa7633cc26447a9e
-  - java -jar codacy-coverage-reporter-assembly-<version>.jar report -l Java -r jacoco.xml
+  - bash <(curl -s https://codecov.io/bash)
